@@ -1,8 +1,12 @@
 import express from "express";
 import monitoringRuanganDb from "./config/index.js";
+import RealTimeRoute from "./routes/RealTimeRoute.js";
 
 const app = express();
 const port = 4000;
+
+app.use(express.json());
+app.use(RealTimeRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -15,10 +19,10 @@ try {
   console.log(error);
 }
 
-monitoringRuanganDb.sync().catch((error) => {
-  console.error("Error creating database & tables:", error);
+app.listen(port, () => {
+  console.log("Server running on port 4000");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+monitoringRuanganDb.sync().catch((error) => {
+  console.error("Error creating database & tables:", error);
 });

@@ -1,4 +1,4 @@
-import monitoringRuanganDb from "../config";
-import RealTimeModel from "./RealTimeModel";
+import monitoringRuanganDb from "../config/index.js";
+import RealTime from "./RealTimeModel.js";
 
-monitoringRuanganDb.define("RealTime", RealTimeModel);
+export const RealTimeModel = monitoringRuanganDb.define("realtime_data", RealTime);

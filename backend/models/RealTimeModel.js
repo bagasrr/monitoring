@@ -1,7 +1,7 @@
 import { DataTypes, Sequelize } from "sequelize";
 
-const RealTimeModel = {
-  temp: {
+const RealTime = {
+  temperature: {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
@@ -15,4 +15,4 @@ const RealTimeModel = {
   },
 };
 
-export default RealTimeModel;
+export default RealTime;
