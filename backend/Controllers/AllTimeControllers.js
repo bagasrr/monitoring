@@ -1,21 +1,22 @@
-import { RealTimeModel } from "../models/index.js";
+import { AllTimeModel } from "../models/index.js";
 
-export const getRealTime = async (req, res) => {
+export const getAllTime = async (req, res) => {
   try {
-    const data = await RealTimeModel.findAll();
-    res.json(data);
+    const data = await AllTimeModel.findAll();
+    res.json({ data: data });
   } catch (error) {
+    res.json({ status: "failed", message: error.message });
     console.log(error);
   }
 };
 
-export const createRealTime = async (req, res) => {
+export const createAllTime = async (req, res) => {
   try {
     const { temperature, humidity, pressure } = req.body;
 
     if (temperature && humidity && pressure) {
       try {
-        const data = await RealTimeModel.create({
+        const data = await AllTimeModel.create({
           temperature,
           humidity,
           pressure,
