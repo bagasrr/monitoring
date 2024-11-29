@@ -2,8 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import monitoringRuanganDb from "./config/index.js";
-import RealTimeRoute from "./routes/RealTimeRoute.js";
-import AllTimeRoute from "./routes/AllTimeRoute.js";
+import routes from "./routes/index.js";
 
 const app = express();
 const port = 4000;
@@ -14,8 +13,9 @@ app.use(bodyParser.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api", RealTimeRoute);
-app.use("/api", AllTimeRoute);
+app.use("/api", routes);
+// app.use("/api", RealTimeRoute);
+// app.use("/api", AllTimeRoute);
 
 try {
   await monitoringRuanganDb.authenticate();
