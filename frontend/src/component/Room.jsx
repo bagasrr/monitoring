@@ -9,6 +9,10 @@ const Room = ({ deviceId }) => {
 
   useEffect(() => {
     getData();
+    const intervalId = setInterval(() => {
+      getData();
+    }, 10000); // 10 seconds // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, [deviceId]);
 
   const getData = async () => {

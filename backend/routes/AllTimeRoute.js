@@ -4,6 +4,6 @@ import { createAllTime, getAllTime } from "../Controllers/AllTimeControllers.js"
 const AllTimeRoute = express.Router();
 
 AllTimeRoute.get("/alltime", getAllTime);
-AllTimeRoute.post("/alltime", createAllTime);
+AllTimeRoute.post("/insert", createAllTime);
 
 export default AllTimeRoute;
