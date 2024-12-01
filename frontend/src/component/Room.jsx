@@ -38,7 +38,7 @@ const Room = ({ deviceId }) => {
       from: { number: start },
       number: end,
       delay: 0,
-      config: { duration: 1000 }, // Durasi transisi
+      config: { duration: 2000 }, // Durasi transisi
     });
 
   const temperatureSpring = animateValue(prevData.temperature ?? 0, data?.temperature ?? 0);

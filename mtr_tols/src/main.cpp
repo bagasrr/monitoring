@@ -4,7 +4,7 @@
 #include <ArduinoJson.h>
 #include <DHT.h> 
 
-#define DHTPIN 2 
+#define DHTPIN D2 
 #define DHTTYPE DHT11 
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -25,8 +25,8 @@ void setup() {
 
 void loop() {
   // Baca nilai dari sensor 
- float temperature = ((rand() % 300) + 200) / 10.0;
- float humidity = ((rand() % 300) + 200) / 10.0;  
+ float temperature = dht.readTemperature(); 
+ float humidity = dht.readHumidity();  
  float pressure = ((rand() % 300) + 200) / 10.0; 
 
   // Pastikan pembacaan sensor berhasil 
