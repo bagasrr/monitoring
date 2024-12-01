@@ -2,43 +2,62 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 #include <ArduinoJson.h>
+#include <DHT.h> 
+
+#define DHTPIN 2 
+#define DHTTYPE DHT11 
+DHT dht(DHTPIN, DHTTYPE);
 
 String wifissid = "BAGAS HOME";
 String wifipass = "09022003";
-String postUrl = "http://192.168.1.8:4000/api/data/insert";
+String postUrl = "http://192.168.1.6:4000/api/data/insert";
 
 void connectToWifi();
 void httpGET();
-void httpPOST();
+void httpPOST(float temperature, float humidity, float pressure);
 
 void setup() {
   Serial.begin(9600); // Gunakan baud rate yang stabil
   connectToWifi();
-  httpPOST();
-  // httpGET();
+  dht.begin();
+  delay(2000);
 }
 
 void loop() {
-  // Your loop code
+  // Baca nilai dari sensor 
+ float temperature = ((rand() % 300) + 200) / 10.0;
+ float humidity = ((rand() % 300) + 200) / 10.0;  
+ float pressure = ((rand() % 300) + 200) / 10.0; 
+
+  // Pastikan pembacaan sensor berhasil 
+  if (isnan(temperature) || isnan(humidity)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  // Kirim data melalui POST 
+  httpPOST(temperature, humidity, pressure);
+
+  // Tunggu sebelum membaca dan mengirim lagi 
+  delay(10000);
 }
 
-void httpPOST() {
+void httpPOST(float temperature, float humidity, float pressure) {
   Serial.println("POST...");
   HTTPClient http;
   String response;
 
   WiFiClient client;
   http.begin(client, postUrl); // Gunakan WiFiClient dan URL sebagai parameter
-
   http.addHeader("Content-Type", "application/json");
 
   StaticJsonDocument<200> buff;
   String jsonParams; 
 
-  buff["deviceId"] = 1;
-  buff["temperature"] = 11; // Menghasilkan nilai acak dari 1 sampai 50
-  buff["humidity"] = 12;
-  buff["pressure"] = 13;
+  buff["deviceId"] = 1; 
+  buff["temperature"] = temperature; 
+  buff["humidity"] = humidity; 
+  buff["pressure"] = pressure;
 
   serializeJson(buff, jsonParams);
   Serial.println(jsonParams);
@@ -50,24 +69,21 @@ void httpPOST() {
     Serial.println(httpCode);
     Serial.println(response);
   } else {
-    Serial.print("Error on sending POST: "); 
-    Serial.println(httpCode); 
+    Serial.print("Error on sending POST: ");
+    Serial.println(httpCode);
     Serial.println(http.errorToString(httpCode));
   }
 
   http.end(); // Hapus sumber daya
 }
 
-
 void httpGET() {
   String getUrl = "http://192.168.1.1:4000/api/data/alltime";
   HTTPClient http;
   String response;
-  
+
   WiFiClient client;
   http.begin(client, getUrl); // Gunakan WiFiClient dan URL sebagai parameter
-
-  // Tambahkan header jika diperlukan
   http.addHeader("Content-Type", "application/json");
 
   int httpCode = http.GET(); // Lakukan request
@@ -85,7 +101,7 @@ void httpGET() {
 }
 
 void connectToWifi() {
-  Serial.println("Connecting to WiFi..");
+  Serial.println("Connecting to WiFi...");
 
   WiFi.begin(wifissid, wifipass);
   int attempts = 0;
@@ -98,11 +114,6 @@ void connectToWifi() {
   if (WiFi.status() == WL_CONNECTED) {
     Serial.println("WiFi Connected");
     Serial.println(WiFi.localIP());
-    Serial.println(WiFi.macAddress());
-    Serial.println(WiFi.SSID());
-    Serial.println(WiFi.channel());
-    Serial.println(WiFi.gatewayIP());
-    Serial.println(WiFi.dnsIP());
   } else {
     Serial.println("Failed to connect to WiFi");
   }
