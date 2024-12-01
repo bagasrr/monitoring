@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
-import Card from "../element/Card";
-import axios from "axios";
 import Room from "./Room";
+import DownloadData from "./DownloadData";
+import DDataFormat from "./DDataformat";
 
 const Content = () => {
   return (
-    <div className="m-auto flex gap-10 p-20 flex-wrap justify-evenly">
-      <Room deviceId={1} />
+    <div className="m-auto flex gap-10 p-20 flex-col justify-evenly">
+      <div className="flex justify-center gap-5">
+        <DownloadData deviceId={1} />
+        <DDataFormat deviceId={1} />
+      </div>
+      <div>
+        <Room deviceId={1} />
+      </div>
     </div>
   );
 };

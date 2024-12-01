@@ -48,7 +48,7 @@ void httpPOST(float temperature, float humidity, float pressure) {
   String response;
 
   WiFiClient client;
-  http.begin(client, postUrl); // Gunakan WiFiClient dan URL sebagai parameter
+  http.begin(client, postUrl);
   http.addHeader("Content-Type", "application/json");
 
   StaticJsonDocument<200> buff;

@@ -1,5 +1,4 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/index.js";
 
 const Devices = {
   name: {
