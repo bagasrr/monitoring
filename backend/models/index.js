@@ -2,6 +2,7 @@ import monitoringRuanganDb from "../config/index.js";
 import AllTime from "./AllTimeModel.js";
 import Devices from "./Devices.js";
 import RealTime from "./RealTimeModel.js";
+import Rules from "./Rules.js";
 
 export const RealTimeModel = monitoringRuanganDb.define("realtime_data", RealTime);
 
@@ -9,9 +10,7 @@ export const AllTimeModel = monitoringRuanganDb.define("alltime_data", AllTime);
 
 export const DevicesModel = monitoringRuanganDb.define("devices_data", Devices);
 
-// RealTimeModel.belongsTo(DevicesModel, { foreignKey: "deviceId" });
-
-// AllTimeModel.belongsTo(DevicesModel, { foreignKey: "deviceId" });
+export const RulesModel = monitoringRuanganDb.define("rules_data", Rules);
 
 // Definisikan relasi dengan alias
 RealTimeModel.belongsTo(DevicesModel, { as: "device", foreignKey: "deviceId" });

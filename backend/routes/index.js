@@ -9,5 +9,6 @@ const routes = express.Router();
 routes.use("/data", AllTimeRoute);
 routes.use("/data", RealTimeRoute);
 routes.use("/devices", DeviceRoute);
+routes.use("/rules", DeviceRoute);
 
 export default routes;

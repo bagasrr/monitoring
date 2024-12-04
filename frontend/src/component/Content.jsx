@@ -1,6 +1,7 @@
-import Room from "./Room";
+// import Room from "./Room";
 import DownloadData from "./DownloadData";
 import DDataFormat from "./DDataformat";
+import ParentComponent from "./ParentComponent";
 
 const Content = () => {
   return (
@@ -10,7 +11,8 @@ const Content = () => {
         <DDataFormat deviceId={1} />
       </div>
       <div>
-        <Room deviceId={1} />
+        {/* <Room deviceId={1} /> */}
+        <ParentComponent />
       </div>
     </div>
   );

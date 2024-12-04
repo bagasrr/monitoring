@@ -5,6 +5,6 @@ import { createDevice, getAllDevices } from "../Controllers/DeviceControllers.js
 const DeviceRoute = express.Router();
 
 DeviceRoute.post("/create", createDevice);
-DeviceRoute.get("/getAll", getAllDevices);
+DeviceRoute.get("/", getAllDevices);
 
 export default DeviceRoute;
