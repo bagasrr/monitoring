@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardComponent from "./CardComponent";
 import axios from "axios";
-
-const ParentComponent = () => {
+const CardContainer = () => {
   const [deviceIds, setDeviceIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +10,6 @@ const ParentComponent = () => {
     const fetchDeviceIds = async () => {
       try {
         const res = await axios.get(`http://localhost:4000/api/devices`);
-        console.log(res.data.data);
         const deviceIds = res.data.data.map((device) => device.id);
         setDeviceIds(deviceIds);
       } catch (error) {
@@ -31,10 +29,12 @@ const ParentComponent = () => {
   return (
     <div className="flex flex-wrap gap-10 justify-evenly">
       {deviceIds.map((id) => (
-        <CardComponent key={id} deviceId={id} />
+        <div key={id}>
+          <CardComponent deviceId={id} />
+        </div>
       ))}
     </div>
   );
 };
 
-export default ParentComponent;
+export default CardContainer;

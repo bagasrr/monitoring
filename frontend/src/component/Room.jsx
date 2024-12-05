@@ -19,14 +19,13 @@ const Room = ({ deviceId }) => {
 
   const getData = async () => {
     try {
-      const res = await axios.get(`http://localhost:4000/api/data/realtime`, {
-        params: { deviceId },
+      const res = await axios.get(`http://localhost:4000/api/data/realtime/${deviceId}`, {
         withCredentials: true,
       });
       console.log("Res Data : ", res.data); // Logging response untuk memastikan datanya
       console.log(data); // Logging response untuk memastikan datanya
       setPrevData(data ?? { temperature: null, humidity: null, pressure: null });
-      setData(res.data.data[0]); // Pastikan struktur ini sesuai dengan API response
+      setData(res.data.data); // Pastikan struktur ini sesuai dengan API response
     } catch (error) {
       setError(error);
       console.log(error);

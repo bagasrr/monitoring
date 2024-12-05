@@ -1,8 +1,9 @@
-import { RulesModel } from "../models";
+import { RulesModel } from "../models/index.js";
 
 export const createRules = async (req, res) => {
   try {
     const data = await RulesModel.create(req.body);
+
     res.json({ data });
   } catch (error) {
     res.json({ status: "failed", message: error.message });
@@ -12,7 +13,7 @@ export const createRules = async (req, res) => {
 export const getAllRules = async (req, res) => {
   try {
     const data = await RulesModel.findAll();
-    res.json({ data });
+    res.json({ rules: data });
   } catch (error) {
     res.json({ status: "failed", message: error.message });
   }
