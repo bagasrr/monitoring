@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../component/Navbar";
-import Content from "../component/content";
+import Content from "../component/Content";
 
 const HomePage = () => {
   return (

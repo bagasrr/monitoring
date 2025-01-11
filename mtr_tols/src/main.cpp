@@ -8,9 +8,9 @@
 #define DHTTYPE DHT11 
 DHT dht(DHTPIN, DHTTYPE);
 
-String wifissid = "BAGAS HOME";
-String wifipass = "09022003";
-String postUrl = "http://192.168.1.6:4000/api/data/insert";
+String wifissid = "Galaxy A7228F5";
+String wifipass = "uspc9886i";
+String postUrl = "http://192.168.22.231:4000/api/data/insert";
 
 void connectToWifi();
 void httpGET();
@@ -78,7 +78,7 @@ void httpPOST(float temperature, float humidity, float pressure) {
 }
 
 void httpGET() {
-  String getUrl = "http://192.168.1.1:4000/api/data/alltime";
+  String getUrl = "http://172.20.10.3:4000/api/data/alltime";
   HTTPClient http;
   String response;
 
@@ -113,7 +113,10 @@ void connectToWifi() {
 
   if (WiFi.status() == WL_CONNECTED) {
     Serial.println("WiFi Connected");
+    Serial.print("IP Address: ");
     Serial.println(WiFi.localIP());
+    Serial.print("MAC Address: ");
+    Serial.println(WiFi.macAddress());
   } else {
     Serial.println("Failed to connect to WiFi");
   }
